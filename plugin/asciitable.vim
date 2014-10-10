@@ -19,11 +19,9 @@
 "* Asciitable commands
 "*****************************************************************
 :command! -nargs=0 Asctable  call Asciitable(10)
-:command! -nargs=0 AsctableO call Asciitable(8)
 :command! -nargs=0 AsctableH call Asciitable(16)
 :command! -nargs=? Asciitable call Asciitable(<f-args>)
 
-nmap <Leader>a8 :cal Asciitable(8)<CR>
 nmap <Leader>a10 :cal Asciitable(10)<CR>
 nmap <Leader>a16 :cal Asciitable(16)<CR>
 
@@ -68,12 +66,10 @@ function! s:BldWindow(disptext)
         setlocal noswapfile
         setlocal buftype=nowrite
         setlocal bufhidden=delete
-        setlocal nonumber
         setlocal nowrap
         setlocal norightleft
         setlocal foldcolumn=0
         setlocal modifiable
-        setlocal filetype=ascii_table
         let b:ASCIITable='ASCIITable'
     endif
 
@@ -81,13 +77,7 @@ function! s:BldWindow(disptext)
 endfunc
 
 function! Asciitable(...)
-    if ( a:0 == 0 )
-        let base = 10
-    elseif ( a:1 == 10 ) || ( a:1 == 8 ) || ( a:1 == 16 )
-        let base = a:1
-    else
-        let base = 10
-    endif
+    let base = a:1
     let n = 0
     let titletext = "ASCII Table Base " . base
     let outbuf = "===================== "
@@ -103,13 +93,6 @@ function! Asciitable(...)
             if ( base == 16 )
                 let spacing = "0x"
                 if ( n < 16 )
-                    let spacing = spacing . "0"
-                endif
-            elseif ( base == 8 )
-                let spacing = " "
-                if ( n < 8 )
-                    let spacing = spacing . "00"
-                elseif ( n < 64 )
                     let spacing = spacing . "0"
                 endif
             elseif ( n < 10 )
