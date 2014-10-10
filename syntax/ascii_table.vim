@@ -12,8 +12,8 @@ hi link titlePath Macro
 syntax keyword	tableWord	ASCII Table Base
 hi link tableWord Macro
 
-syntax keyword tableValue   val
+syntax keyword tableValue   value
 hi link tableValue Function
 
-syntax keyword tableChar   chr
+syntax keyword tableChar   char
 hi link tableChar Type

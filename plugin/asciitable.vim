@@ -84,7 +84,7 @@ function! Asciitable(...)
     let outbuf = "===================== "
     let outbuf = outbuf . titletext
     let outbuf = outbuf . " =====================\n"
-    let outbuf = outbuf . "val chr |val chr|val chr|val chr|val chr|val chr|val chr|val chr\n"
+    let outbuf = outbuf . "value char  |value char  |value char  |value char  |value char  |value char  |value char  |value char  |\n"
     let outbuf = outbuf . "--------+-------+-------+-------+-------+-------+-------+-------\n"
     let r = 0
     while r <= 31
