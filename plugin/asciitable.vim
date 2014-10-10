@@ -69,12 +69,12 @@ function! s:BldWindow(disptext)
         setl nowrap
         setl norightleft
         setl foldcolumn=4
-        setl modifiable
         setl filetype=ascii_table
         let b:ASCIITable='ASCIITable'
     endif
 
     silent put! =a:disptext
+    setl nomodifiable
 endfunc
 
 function! Asciitable(...)
@@ -84,13 +84,13 @@ function! Asciitable(...)
     let outbuf = "===================== "
     let outbuf = outbuf . titletext
     let outbuf = outbuf . " =====================\n"
-    let outbuf = outbuf . "value char  |value char  |value char  |value char  |value char  |value char  |value char  |value char  |\n"
-    let outbuf = outbuf . "--------+-------+-------+-------+-------+-------+-------+-------\n"
+    let outbuf = outbuf . "value char | value char | value char | value char | value char | value char | value char | value char\n"
+    let outbuf = outbuf . "-----------+------------+------------+------------+------------+------------+------------+-----------\n"
     let r = 0
-    while r <= 31
+    while r <= 15
         let c = 0
         while c <= 7
-            let n = r + ( c * 32 )
+            let n = r + ( c * 16 )
             if ( base == 16 )
                 let spacing = "0x"
                 if ( n < 16 )
@@ -103,17 +103,23 @@ function! Asciitable(...)
             else
                 let spacing = " "
             endif
-            let outbuf = outbuf . spacing . s:Nr2Base(n, base)
+            let outbuf = outbuf . spacing . s:Nr2Base(n, base) . "  "
             if ( n == 0 )
                 let outbuf = outbuf . " NL"
             elseif ( n >= 1 && n <= 26 )
                 " Some control characters don't play well with terminals, so fake it
                 let outbuf = outbuf . " ^" . nr2char(n+64)
+            elseif ( n >= 32)
+                let outbuf = outbuf . "  " . nr2char(n)
+            "elseif ( n >= 128 && n <= 159 )
+                "let outbuf = outbuf . "  "
+            "elseif( n==161 || n==164 || n==167 || n==168 || n==170 || n==173 || n==174 \
+                "|| n==)
             else
                 let outbuf = outbuf . " " . nr2char(n)
             endif
             let c = c + 1
-            let outbuf = outbuf . ( ( c == 8 ) ? "" : " |" )
+            let outbuf = outbuf . ( ( c == 8 ) ? "" : "  | " )
         endwhile
         let r = r + 1
         let outbuf = outbuf . "\n"
