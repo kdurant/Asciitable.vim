@@ -63,13 +63,13 @@ function! s:BldWindow(disptext)
     else
         execute vheight.'split __ASCIITable'
 
-        setlocal noswapfile
-        setlocal buftype=nowrite
-        setlocal bufhidden=delete
-        setlocal nowrap
-        setlocal norightleft
-        setlocal foldcolumn=0
-        setlocal modifiable
+        setl noswapfile
+        setl buftype=nowrite
+        setl bufhidden=delete
+        setl nowrap
+        setl norightleft
+        setl foldcolumn=4
+        setl modifiable
         let b:ASCIITable='ASCIITable'
     endif
 
