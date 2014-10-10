@@ -73,6 +73,7 @@ function! s:BldWindow(disptext)
         setlocal norightleft
         setlocal foldcolumn=0
         setlocal modifiable
+        setlocal filetype=ascii_table
         let b:ASCIITable='ASCIITable'
     endif
 
